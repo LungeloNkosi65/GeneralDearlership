@@ -10,11 +10,17 @@ namespace GeneralDearlership
 {
     class Program
     {
+       
         static void Main(string[] args)
         {
-            var logic = new VehicleLogic();
-           var vehicle = new Vehicle(50000, Spects.High, Colours.Flat, ServiceType.Medium, 60000, 2019);
-            Console.WriteLine(logic.CalcSellingPrice(vehicle));
+            var sellVehicle = new SellingVehicleLogic();
+            var buyVehicle = new VehicleBuyingLogic();
+
+            //sellVehicle.SellVehicle();
+            buyVehicle.Start();
+            //MakeLogic.ListMakes();
+
+            Console.ReadKey();
             Console.ReadLine();
         }
         

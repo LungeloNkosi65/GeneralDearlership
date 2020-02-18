@@ -43,11 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogicLayer\DisplayLogic.cs" />
+    <Compile Include="LogicLayer\SellingVehicleLogic.cs" />
+    <Compile Include="LogicLayer\VehicleBuyingLogic.cs" />
     <Compile Include="LogicLayer\VehicleLogic.cs" />
-    <Compile Include="Models\Make.cs" />
     <Compile Include="Models\MillageBracket.cs" />
     <Compile Include="Models\Vehicle.cs" />
-    <Compile Include="Models\VehicleModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
