@@ -12,6 +12,13 @@ namespace GeneralDearlership.Models
         Medium=30,
         None = 0
     }
+
+    public enum ServiceAddition
+    {
+        Full=15,
+        Medium=10,
+        None=0
+    }
     public enum Spects
     {
         High=30,

@@ -18,20 +18,20 @@ namespace GeneralDearlership.LogicLayer
         {
             millageBrackets = new List<MillageBracket>() { 
             
-            new MillageBracket(0,100000,30),
-            new MillageBracket(100000,150000,15),
-            new MillageBracket(150000,160000,15),
+            new MillageBracket(0,100000,30000,0.4),
+            new MillageBracket(100000,150000,15,0.3),
+            new MillageBracket(150000,160000,15,0.1),
 
 
             };
             YearBrackets = new List<MillageBracket>() {
-             new MillageBracket(0,2011,5),
-             new MillageBracket(2011,2015,10),
-             new MillageBracket(2015,2019,10),
+             new MillageBracket(0,2011,5000,0.15),
+             new MillageBracket(2011,2015,10000,.01),
+             new MillageBracket(2015,2019,30000,0.15),
 
 
             };
-            vehicle = new Vehicle();
+            vehicle = new Vehicle(50000, Spects.High, Colours.Flat, ServiceType.Medium, 60000, 2019);
         }
 
 
@@ -50,9 +50,15 @@ namespace GeneralDearlership.LogicLayer
 
         public decimal CalcServiceFee(Vehicle vehicle)
         {
-            if (vehicle.TypeOfVehicle != VehicleType.Car)
+            if (vehicle.TypeOfVehicle == VehicleType.Bus || vehicle.TypeOfVehicle == VehicleType.Truck)
             {
-                return vehicle.BookValue * ((decimal)vehicle.ServiceHistory / 100);
+                //foreach (var item in Enum.GetNames(ServiceAddition))
+                //{
+
+                //}
+                //if(Enum.)
+
+                return vehicle.BookValue * ((decimal)vehicle.ServiceHistory / 100) +(vehicle.BookValue * ((decimal)vehicle.ServiceHistory / 100));
                 // still need to add truck and bus logic
             }
             else
@@ -66,19 +72,24 @@ namespace GeneralDearlership.LogicLayer
             decimal fee = 0;
             foreach (var item in millageBrackets)
             {
-                if (vehicle.TypeOfVehicle != VehicleType.Car)
+                if (vehicle.Year >= item.LowerValue && vehicle.Year < item.UperValue)
                 {
-                    //still need to implement Bus and truck logic
-                    fee=vehicle.BookValue;
-                    break;
-                }
-                else
-                {
-                    fee=vehicle.BookValue;
+                    
+
+                    if (vehicle.TypeOfVehicle == VehicleType.Bus || vehicle.TypeOfVehicle == VehicleType.Truck)
+                    {
+                        //still need to implement Bus and truck logic
+                        //fee = vehicle.BookValue + (decimal)item.Percentage + (vehicle.BookValue + (decimal)item.Percentage * (decimal)item.AdditionalPercent);
+                        return (decimal)((item.Percentage)+ (item.Percentage*item.AdditionalPercent));
+                       
+                    }
+                    else
+                    {
+                        return (decimal)item.Percentage;
+                    }
                 }
             }
             return fee;
-          //
         }
 
 
@@ -87,23 +98,31 @@ namespace GeneralDearlership.LogicLayer
             decimal fee = 0;
             foreach (var item in YearBrackets)
             {
-                if (vehicle.TypeOfVehicle != VehicleType.Car)
+                if(vehicle.Year>=item.LowerValue && vehicle.Year < item.UperValue)
                 {
-                    //still need to implement Bus and truck logic
-                    fee = vehicle.BookValue;
-                    break;
+                    if (vehicle.TypeOfVehicle == VehicleType.Bus || vehicle.TypeOfVehicle == VehicleType.Truck)
+                    {
+                        //still need to implement Bus and truck logic
+                        return (decimal)((item.Percentage) + (item.Percentage * item.AdditionalPercent));
+                    }
+                    else
+                    {
+                        return (decimal)item.Percentage;
+                    }
                 }
-                else
-                {
-                    fee = vehicle.BookValue;
-                }
+              
             }
             return fee;
 
         }
 
         public decimal CalcColurFee(Vehicle vehicle) {
-            return vehicle.BookValue + (decimal)vehicle.Colour;
+            return  (decimal)vehicle.Colour;
+        }
+
+        public decimal CalcSellingPrice(Vehicle vehicle)
+        {
+            return vehicle.BookValue+ CalcColurFee(vehicle) + CalcMillageFee(vehicle) + CalcServiceFee(vehicle) + YearFee(vehicle);
         }
 
     }

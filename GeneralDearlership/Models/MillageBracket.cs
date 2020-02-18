@@ -8,15 +8,17 @@ namespace GeneralDearlership.Models
 {
    public class MillageBracket
     {
-        public decimal LowerValue { get; set; }
-        public decimal UperValue { get; set; }
-        public decimal Percentage { get; set; }
+        public double LowerValue { get; set; }
+        public double UperValue { get; set; }
+        public double Percentage { get; set; }
+        public double AdditionalPercent { get; set; }
 
-        public MillageBracket(decimal lowerValue,decimal uperValue,decimal percentage)
+        public MillageBracket(double lowerValue, double uperValue, double percentage,double additionalPercent)
         {
             LowerValue = lowerValue;
             UperValue = uperValue;
             Percentage = percentage;
+            AdditionalPercent = additionalPercent;
         }
     }
 }
