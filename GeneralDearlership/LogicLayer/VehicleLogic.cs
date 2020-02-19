@@ -11,7 +11,7 @@ namespace GeneralDearlership.LogicLayer
     {
         public static List<MillageBracket> millageBrackets;
         public static List<MillageBracket> YearBrackets;
-         static VehicleLogic()
+         public VehicleLogic()
         {
             millageBrackets = new List<MillageBracket>() { 
             
@@ -72,7 +72,6 @@ namespace GeneralDearlership.LogicLayer
                 {
                     if (vehicle.TypeOfVehicle == VehicleType.Bus || vehicle.TypeOfVehicle == VehicleType.Truck)
                     {
-                        //still need to implement Bus and truck logic
                         return (decimal)((item.Percentage) + (item.Percentage * item.AdditionalPercent));
                     }
                     else

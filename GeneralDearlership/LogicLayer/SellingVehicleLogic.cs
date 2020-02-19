@@ -7,30 +7,23 @@ using System.Threading.Tasks;
 
 namespace GeneralDearlership.LogicLayer
 {
-    struct SellingInput
-    {
-        public VehicleType vehicleType { get; set; }
-    }
+    
 
     public class SellingVehicleLogic
     {
         public List<Vehicle> AvailabelVehicles { get; set; }
-        SellingInput sellingInput;
         DisplayLogic displayLogic;
         public SellingVehicleLogic()
         {
             displayLogic = new DisplayLogic();
-            sellingInput = new SellingInput();
         }
-
         public void SellVehicle()
         {
             Array listOptions;
             VehicleType vehicle;
             string input = "";
 
-
-                Console.WriteLine("Select vehicle type from the following");
+                Console.WriteLine("Select vehicle type from the following that you want to sell");
                 listOptions = Enum.GetNames(typeof(VehicleType));
                 for (int i = 0; i < listOptions.Length; i++)
                 {
@@ -44,15 +37,29 @@ namespace GeneralDearlership.LogicLayer
                         vehicle = (VehicleType)Enum.Parse(typeof(VehicleType), (listOptions.GetValue(int.Parse(input))).ToString());
                         break;
                     }
-                    Console.WriteLine("Invalid option please select valid option");
+                DisplayLogic.ValidOptionMessage();
                 } while (true);
 
-            DisplayLogic.GetMake(vehicle);
-            input = Console.ReadLine().ToUpper();
-            DisplayLogic.GetModel(input);
+            do
+            {
+                try
+                {
+                    DisplayLogic.GetMake(vehicle);
+                    input = Console.ReadLine();
+                    if (input.All(Char.IsDigit) && int.Parse(input) >= 0)
+                    {
+                        DisplayLogic.GetModel(int.Parse(input));
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DisplayLogic.ValidOptionMessage();
+                }
+
+            } while (true);
 
         }
-
 
     }
 }
